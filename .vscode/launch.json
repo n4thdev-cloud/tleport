@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TleportApplication<tleport>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "abstracta.tleport.TleportApplication",
+            "projectName": "tleport",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
