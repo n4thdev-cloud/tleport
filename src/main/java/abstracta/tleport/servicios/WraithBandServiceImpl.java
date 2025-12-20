@@ -2,6 +2,8 @@
 package abstracta.tleport.servicios;
 
 import abstracta.tleport.modelo.UsuariaModel;
+import abstracta.tleport.util.JwtUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,21 +20,34 @@ public class WraithBandServiceImpl implements WraithBandService {
     private static final Logger log = LoggerFactory.getLogger(UsuarioService.class);
     private final UsuarioService usuarioService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    @Value("${spring.roles.tleport:USER}")
+    @Value("${spring.roles.tleport:USERBAD}")
     private String rolesTleport;
 
-    public WraithBandServiceImpl(UsuarioService usuarioService, PasswordEncoder passwordEncoder) {
+    public WraithBandServiceImpl(UsuarioService usuarioService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.usuarioService = usuarioService;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
-    public Boolean registrarUsuaria(UsuariaModel usuarioModel) {
+    public String registrarUsuaria(UsuariaModel usuariaModel) {
         log.info("ROL cargado desde env: {}", rolesTleport);
-        usuarioModel.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
+        usuariaModel.setPassword(passwordEncoder.encode(usuariaModel.getPassword()));
+        usuariaModel.setRol(rolesTleport);
 
-        return this.usuarioService.guardar(usuarioModel);
+        UsuariaModel usuariaCreada = this.usuarioService.guardar(usuariaModel);
+        String token = "";
+
+        if (usuariaCreada.getId() != null) {// se creó bien
+            token = jwtUtil.generateTokenNewUser(usuariaCreada);
+            log.info("Token generado para la nueva usuaria: {}", token);
+        } else {
+            token = jwtUtil.generateTokenErrorNew("Error al crear la usuaria");
+        }
+
+        return token;
     }
 
     @Override

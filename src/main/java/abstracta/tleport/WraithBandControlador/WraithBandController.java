@@ -9,12 +9,12 @@ import abstracta.tleport.modelo.UsuariaModel;
 import abstracta.tleport.servicios.UsuarioService;
 import abstracta.tleport.servicios.WraithBandService;
 import jakarta.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  *
@@ -55,16 +55,8 @@ public class WraithBandController {
     @CrossOrigin("*")
     @PostMapping("/crearUsuaria")
     public Map<String, String> crearUsuaria(@Valid @RequestBody UsuariaModel usuarioModel) {
-        String control;
-
-        if (wraithBandService.registrarUsuaria(usuarioModel)) {
-
-            control = "Usuaria Creada 🙌";
-        } else {
-            control = "Error 🍀, no se pudo crear el usuario";
-        }
-
-        return Collections.singletonMap("response", control);
+         
+        return Map.of("token", wraithBandService.registrarUsuaria(usuarioModel));
     }
 
 }

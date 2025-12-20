@@ -2,7 +2,6 @@
 package abstracta.tleport.servicios;
 
 import abstracta.tleport.modelo.UsuariaModel;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Service;
 public interface WraithBandService {
     
     public String test();
-    public Boolean registrarUsuaria(UsuariaModel usuarioModel);
+    public String registrarUsuaria(UsuariaModel usuarioModel);
         
-    
-    
 }

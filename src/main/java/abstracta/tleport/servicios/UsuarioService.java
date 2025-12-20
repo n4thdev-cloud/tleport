@@ -5,6 +5,7 @@ import abstracta.tleport.modelo.UsuariaModel;
 import abstracta.tleport.repositorio.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -18,24 +19,18 @@ import org.slf4j.LoggerFactory;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
-        private static final Logger log = LoggerFactory.getLogger(UsuarioService.class);
+    private static final Logger log = LoggerFactory.getLogger(UsuarioService.class);
 
     public UsuarioService(UsuarioRepository repository) {
         this.usuarioRepository = repository;
     }
 
-    public Boolean guardar(UsuariaModel usuario) {
-        UsuariaModel usuariaGuardada = usuarioRepository.save(usuario);
-        Boolean control = Boolean.FALSE;
-        try {
-            if (usuariaGuardada.getId() != null) {
-                control = Boolean.TRUE;
-            }
-        } catch (Exception e) {
-            log.error("Error al guardar la usuaria", e);
-        }
+    public UsuariaModel guardar(UsuariaModel usuaria) {
+        Objects.requireNonNull(usuaria, "La usuaria no puede ser null");
 
-        return control;
+        UsuariaModel usuariaGuardada = usuarioRepository.save(usuaria);
+        log.info("Usuaria guardada con ID: {}", usuariaGuardada.toString());
+        return usuariaGuardada;
     }
 
     public List<UsuariaModel> obtenerTodxs() {

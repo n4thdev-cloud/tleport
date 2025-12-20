@@ -12,17 +12,21 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.validation.constraints.NotNull;
+
 @Data // Genera Getters, Setters, ToString, Equals, HashCode
 @AllArgsConstructor // Constructor con todo
-@NoArgsConstructor  // Constructor vacío
-@Document(collection = "usuario")   // nombre de la colección
+@NoArgsConstructor // Constructor vacío
+@Document(collection = "usuario") // nombre de la colección
 public class UsuariaModel {
     @Id
     private ObjectId id;
-    private String userName;
-    private String email;
-    private String password;
-    
-    
-}
 
+    private String userName;
+    @NotNull(message = "El email es obligatorio")
+    private String email;
+    @NotNull(message = "El password es obligatorio")
+    private String password;
+    private String rol;
+
+}
