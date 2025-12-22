@@ -33,16 +33,20 @@ public class WraithBandController {
 
     @CrossOrigin("*")
     @PostMapping("/crearUsuaria")
-    public Map<String, String> crearUsuaria(@Valid @RequestBody UsuariaModel usuariaModel) {
-
+    public Map<String, String> crearUsuaria(@RequestBody UsuariaModel usuariaModel) {
         return Map.of("token", wraithBandService.registrarUsuaria(usuariaModel));
     }
 
     @CrossOrigin("*")
     @PostMapping("/checkNombreUsuaria")
     public Map<String, String> checkNombreUsuaria(@RequestBody String nombreUsuaria) {
-
         return Map.of("token", wraithBandService.checkNombreUsuaria(nombreUsuaria));
+    }
+
+    @CrossOrigin("*")
+    @PostMapping("/loginUsuaria")
+    public Map<String, String> loginUsuaria(@RequestBody UsuariaModel usuariaModel) {
+        return Map.of("token", wraithBandService.loginUsuaria(usuariaModel));
     }
 
     @GetMapping("/test")

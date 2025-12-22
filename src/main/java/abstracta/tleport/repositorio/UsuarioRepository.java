@@ -16,6 +16,5 @@ public interface UsuarioRepository extends MongoRepository<UsuariaModel, ObjectI
 
     // También puedes crear consultas personalizadas
     List<UsuariaModel> findByEmail(String email);
-
     Optional<UsuariaModel> findByuserName(String username);
 }

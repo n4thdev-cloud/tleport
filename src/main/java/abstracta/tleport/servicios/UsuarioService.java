@@ -33,14 +33,15 @@ public class UsuarioService {
         return usuariaGuardada;
     }
 
-    public Optional<UsuariaModel> checkUsuariaModel(String usuariaName) {
-
-
+    public Optional<UsuariaModel> checkUsuariaName(String usuariaName) {
         Optional<UsuariaModel> usuariaBuscada = usuarioRepository.findByuserName(usuariaName);
         log.info("Nombre usuaria encontrada con ID: {}", usuariaBuscada.toString());
         return usuariaBuscada;
     }
 
+    public UsuariaModel findByEmail(String email) {
+        return usuarioRepository.findByEmail(email).stream().findFirst().orElse(null);
+    }
 
     public List<UsuariaModel> obtenerTodxs() {
         return usuarioRepository.findAll();
@@ -53,5 +54,7 @@ public class UsuarioService {
         }
         return usuarioRepository.findById(new ObjectId(id));
     }
+
+
 
 }

@@ -35,7 +35,7 @@ public class SecurityConfig {
             // 2. Definir las reglas de autorización
             .authorizeHttpRequests(auth -> auth
                 // Permite el acceso a estas rutas sin autenticación (públicas)
-                .requestMatchers("/teleport/usuarix/crearUsuaria","/actuator/env","/teleport/usuarix/checkNombreUsuaria").permitAll()
+                .requestMatchers("/teleport/usuarix/crearUsuaria","/actuator/env","/teleport/usuarix/checkNombreUsuaria","/teleport/usuarix/loginUsuaria").permitAll()
                 
                 // Las rutas que requieren un ROL específico
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")

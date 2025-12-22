@@ -20,7 +20,7 @@ public class JwtUtil {
 
     public String generateTokenNewUser(UsuariaModel usuariaModel) {
         return Jwts.builder()
-                .setSubject(usuariaModel.getUserName())
+                .setSubject("nuevaUsuaria")
                 .claim("id", usuariaModel.getId().toString())
                 .claim("name", usuariaModel.getUserName())
                 .claim("email", usuariaModel.getEmail())
@@ -30,7 +30,7 @@ public class JwtUtil {
                 .compact();
     }
 
-        public String generateTokenErrorNew(String mensaje) {
+    public String generateTokenErrorNew(String mensaje) {
         return Jwts.builder()
                 .setSubject(mensaje)
                 .claim("id", mensaje)
@@ -40,9 +40,12 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String generateToken(String username) {
+    public String generateToken(UsuariaModel usuariaModel) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject("usuariaLogin")
+                .claim("id", usuariaModel.getId().toString())
+                .claim("name", usuariaModel.getUserName())
+                .claim("email", usuariaModel.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
