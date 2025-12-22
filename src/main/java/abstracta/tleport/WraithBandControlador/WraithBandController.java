@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
-
 /**
  *
  * @author n4th
@@ -32,6 +31,20 @@ public class WraithBandController {
         this.usuarioService = usuarioService;
     }
 
+    @CrossOrigin("*")
+    @PostMapping("/crearUsuaria")
+    public Map<String, String> crearUsuaria(@Valid @RequestBody UsuariaModel usuariaModel) {
+
+        return Map.of("token", wraithBandService.registrarUsuaria(usuariaModel));
+    }
+
+    @CrossOrigin("*")
+    @PostMapping("/checkNombreUsuaria")
+    public Map<String, String> checkNombreUsuaria(@RequestBody String nombreUsuaria) {
+
+        return Map.of("token", wraithBandService.checkNombreUsuaria(nombreUsuaria));
+    }
+
     @GetMapping("/test")
     public String test() {
 
@@ -43,20 +56,13 @@ public class WraithBandController {
 
         return usuarioService.obtenerTodxs();
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<UsuariaModel> obtenerPorId(@PathVariable String id) {
 
         return usuarioService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
-
-    @CrossOrigin("*")
-    @PostMapping("/crearUsuaria")
-    public Map<String, String> crearUsuaria(@Valid @RequestBody UsuariaModel usuarioModel) {
-         
-        return Map.of("token", wraithBandService.registrarUsuaria(usuarioModel));
     }
 
 }

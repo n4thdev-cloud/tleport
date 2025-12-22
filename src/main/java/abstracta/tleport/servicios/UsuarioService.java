@@ -33,6 +33,15 @@ public class UsuarioService {
         return usuariaGuardada;
     }
 
+    public Optional<UsuariaModel> checkUsuariaModel(String usuariaName) {
+
+
+        Optional<UsuariaModel> usuariaBuscada = usuarioRepository.findByuserName(usuariaName);
+        log.info("Nombre usuaria encontrada con ID: {}", usuariaBuscada.toString());
+        return usuariaBuscada;
+    }
+
+
     public List<UsuariaModel> obtenerTodxs() {
         return usuarioRepository.findAll();
     }

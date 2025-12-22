@@ -12,5 +12,6 @@ public interface WraithBandService {
     
     public String test();
     public String registrarUsuaria(UsuariaModel usuarioModel);
+    public String checkNombreUsuaria(String nombreUsuaria);
         
 }

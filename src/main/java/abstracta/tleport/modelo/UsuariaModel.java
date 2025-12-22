@@ -21,7 +21,7 @@ import jakarta.validation.constraints.NotNull;
 public class UsuariaModel {
     @Id
     private ObjectId id;
-
+    @NotNull(message = "El nombre de usuario es obligatorio")
     private String userName;
     @NotNull(message = "El email es obligatorio")
     private String email;

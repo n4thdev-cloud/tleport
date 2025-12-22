@@ -13,8 +13,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UsuarioRepository extends MongoRepository<UsuariaModel, ObjectId> {
-    
+
     // También puedes crear consultas personalizadas
     List<UsuariaModel> findByEmail(String email);
-     Optional<UsuariaModel> findByuserName(String username);
+
+    Optional<UsuariaModel> findByuserName(String username);
 }

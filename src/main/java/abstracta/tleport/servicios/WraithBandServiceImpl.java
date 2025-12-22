@@ -4,6 +4,8 @@ package abstracta.tleport.servicios;
 import abstracta.tleport.modelo.UsuariaModel;
 import abstracta.tleport.util.JwtUtil;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,6 +47,21 @@ public class WraithBandServiceImpl implements WraithBandService {
             log.info("Token generado para la nueva usuaria: {}", token);
         } else {
             token = jwtUtil.generateTokenErrorNew("Error al crear la usuaria");
+        }
+
+        return token;
+    }
+
+    @Override
+    public String checkNombreUsuaria(String usuariaModel) {
+        
+        Optional<UsuariaModel> usuariaBuscada = this.usuarioService.checkUsuariaModel(usuariaModel);
+        String token = "";
+
+        if (usuariaBuscada.isPresent()) {//usuaria existe
+            token = jwtUtil.generateTokenErrorNew("El nombre de usuarix ya existe");
+        } else {
+            token = jwtUtil.generateTokenErrorNew("OK");
         }
 
         return token;
